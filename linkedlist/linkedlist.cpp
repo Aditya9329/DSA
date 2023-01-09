@@ -1,5 +1,6 @@
 #include<iostream>
 #include<stdlib.h>
+#include<map>
 using namespace std;
 
 struct node
@@ -120,6 +121,50 @@ bool iscircular(struct node * head)
         }
         
     }
+}
+// #################################################################################
+
+struct node* reverse_list(struct node* &head)
+{
+    if(head == NULL ||head->next != NULL)
+    {
+        return head;
+    }
+
+    struct node* prev = NULL;
+    struct node* curr = head;
+    struct node* forward = NULL;
+    
+    while (curr != NULL)
+    {
+        forward = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = forward;
+    }
+    return prev;
+}
+// #################################################################################
+
+bool isloop(struct node* &head)
+{
+    if(head == NULL)
+    {
+        return false;
+    }
+    map<struct node *,bool>visited;
+    struct node* temp = head;
+    while (temp != NULL)
+    {
+        if(visited[temp] == true)
+        {
+            return true;
+        }
+        visited[temp] = true;
+        temp = temp->next;
+    }
+    return false;
+    
 }
 
 // #################################################################################
